@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo>
+        <plugin name="gz::sim::systems::DiffDrive" filename="gz-sim-diff-drive-system">
+            <left_joint>left_front_wheel_joint</left_joint>
+            <right_joint>right_front_wheel_joint</right_joint>
+            <left_joint>left_back_wheel_joint</left_joint>
+            <right_joint>right_back_wheel_joint</right_joint>
+            <wheel_separation>0.228</wheel_separation>
+            <wheel_radius>0.065</wheel_radius>
+            <!-- giới hạn -->
+            <max_wheel_torque>200</max_wheel_torque>
+            <max_wheel_acceleration>10</max_wheel_acceleration>
+            <!-- Topic để nhận lệnh điều khiển vận tốc -->
+            <topic>cmd_vel</topic>
+            
+            <!-- Cấu hình Odometry (Tùy chọn) -->
+            <odom_publish_frequency>30</odom_publish_frequency>
+            <frame_id>odom</frame_id>
+            <child_frame_id>base_link</child_frame_id>
+            <publish_odom>true</publish_odom> <!-- vô tác dụng trong gazebo bản ubuntu 24.04 vì nó mở sẵn rồi-->
+            <publish_odom_tf>true</publish_odom_tf> <!-- vô tác dụng trong gazebo bản ubuntu 24.04 -->
+            <publish_wheel_tf>true</publish_wheel_tf> <!-- vô tác dụng trong gazebo bản ubuntu 24.04 -->
+
+        </plugin>
+    </gazebo>
+    
+</robot>
