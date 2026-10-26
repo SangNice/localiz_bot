@@ -3,4 +3,7 @@
 
     <xacro:include filename="$(find localiz_bot)/description/robot_core.xacro" />
 
+    <xacro:include filename="$(find localiz_bot)/description/gazebo_control.xacro"/>
+
+    
 </robot>
