@@ -16,11 +16,12 @@ def generate_launch_description():
                     get_package_share_directory(package_name),'launch','rsp.launch.py'
                 )]), launch_arguments={'use_sim_time': 'true'}.items()
     )
-
+    # Khai báo đường dẫn tới file world vừa tạo
+    world_file = os.path.join(get_package_share_directory(package_name), 'worlds', 'myworld.sdf')
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')]),
-                launch_arguments={'gz_args': 'empty.sdf -r'}.items()
+                launch_arguments={'gz_args': f' -r {world_file}'}.items()
              )
 
     spawn_entity = Node(package='ros_gz_sim', executable='create',
@@ -61,7 +62,7 @@ def generate_launch_description():
         ],
         output='screen'
     )
-
+    
     # Node joint_state_publisher_gui được thêm vào
     joint_state_publisher_gui_node = Node(
         package='joint_state_publisher',
