@@ -27,6 +27,40 @@ def generate_launch_description():
                         arguments=['-topic', 'robot_description',
                                    '-name', 'bot_name'],
                         output='screen')
+    gz_bridge_node = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments=[
+            # Cú pháp: <tên_topic>@<Kiểu_msg_ROS2>[<Kiểu_msg_Gazebo>
+            # Dấu '[' quy định hướng truyền dữ liệu một chiều từ Gazebo sang ROS 2
+            '/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan'
+        ],
+        output='screen'
+    )
+    # Node 1: Bridge cho cmd_vel để điều khiển xe bằng teleop_twist_keyboard
+    cmd_vel_bridge_node = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments=[
+            '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist'
+        ],
+        output='screen'
+    )
+    # Node 2: Bridge cho Clock, Odometry và TF để đồng bộ RViz2 với Gazebo
+    sync_rviz_gazebo_bridge_node = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments=[
+            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
+            '/model/bot_name/odometry@nav_msgs/msg/Odometry@gz.msgs.Odometry',
+            '/model/bot_name/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V'
+        ],
+        remappings=[
+            ('/model/bot_name/tf', '/tf'),
+            ('/model/bot_name/odometry', '/odom')
+        ],
+        output='screen'
+    )
 
     # Node joint_state_publisher_gui được thêm vào
     joint_state_publisher_gui_node = Node(
@@ -40,6 +74,9 @@ def generate_launch_description():
     return LaunchDescription([
         rsp,
         gazebo,
+        gz_bridge_node,
+        cmd_vel_bridge_node,            # Bridge vận tốc
+        sync_rviz_gazebo_bridge_node,   #đồng bộ rviz
         joint_state_publisher_gui_node, # Gọi node giao diện điều khiển khớp
         TimerAction(
             period=3.0,
