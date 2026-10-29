@@ -24,8 +24,8 @@
     <gazebo reference="laser_frame">
         <material>Gazebo/Red</material>
 
-        <sensor name="laser" type="ray">
-            <pose> 0 0 0 0 0 0 </pose>
+        <sensor name="laser" type="gpu_lidar"> 
+            <pose>0 0 0 0 0 0</pose>
             <visualize>true</visualize>
             <update_rate>10</update_rate>
             <ray>
@@ -41,13 +41,8 @@
                     <max>12</max>
                 </range><!-- maybe not use -->
             </ray>
-            <plugin name="laser_controller" filename="libgz-sim-sensors-system.so">
-                <ros>
-                    <remapping>~/out:=scan</remapping>
-                </ros>
-                <output_type>sensor_msgs/LaserScan</output_type>
-                <frame_name>laser_frame</frame_name>
-            </plugin>
+            <topic>/scan</topic>
+            <gz_frame_id>laser_frame</gz_frame_id>
         </sensor>
     </gazebo>
 </robot>

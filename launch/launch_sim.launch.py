@@ -62,7 +62,17 @@ def generate_launch_description():
         ],
         output='screen'
     )
-    
+    diff_drive_spawner = Node(
+    package="controller_manager",
+    executable="spawner",
+    arguments=["diff_cont"],
+    )
+
+    joint_broad_spawner = Node(
+    package="controller_manager",
+    executable="spawner",
+    arguments=["joint_broad"],
+    )
     # Node joint_state_publisher_gui được thêm vào
     joint_state_publisher_gui_node = Node(
         package='joint_state_publisher',
@@ -71,14 +81,16 @@ def generate_launch_description():
         parameters=[{'use_sim_time': True}],
         output='screen'
     )
-
+    
     return LaunchDescription([
         rsp,
         gazebo,
         gz_bridge_node,
         cmd_vel_bridge_node,            # Bridge vận tốc
         sync_rviz_gazebo_bridge_node,   #đồng bộ rviz
-        joint_state_publisher_gui_node, # Gọi node giao diện điều khiển khớp
+        joint_state_publisher_gui_node,
+        diff_drive_spawner,
+        joint_broad_spawner, # Gọi node giao diện điều khiển khớp
         TimerAction(
             period=3.0,
             actions=[spawn_entity]
