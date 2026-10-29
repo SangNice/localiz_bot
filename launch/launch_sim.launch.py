@@ -16,7 +16,7 @@ def generate_launch_description():
                     get_package_share_directory(package_name),'launch','rsp.launch.py'
                 )]), launch_arguments={'use_sim_time': 'true'}.items()
     )
-    # Khai báo đường dẫn tới file world vừa tạo
+    # declare the file world path
     world_file = os.path.join(get_package_share_directory(package_name), 'worlds', 'myworld.sdf')
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
@@ -32,13 +32,13 @@ def generate_launch_description():
         package='ros_gz_bridge',
         executable='parameter_bridge',
         arguments=[
-            # Cú pháp: <tên_topic>@<Kiểu_msg_ROS2>[<Kiểu_msg_Gazebo>
-            # Dấu '[' quy định hướng truyền dữ liệu một chiều từ Gazebo sang ROS 2
+            # syntax: <topic_name>@<msg_ROS2_type>[<msg_Gazebo_type>
+            # the syntax '[' rule that the direction of date is one-way from Gazebo to ROS2
             '/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan'
         ],
         output='screen'
     )
-    # Node 1: Bridge cho cmd_vel để điều khiển xe bằng teleop_twist_keyboard
+    # Node 1: Bridge for cmd_vel to rule the robot by teleop_twist_keyboard
     cmd_vel_bridge_node = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -47,7 +47,7 @@ def generate_launch_description():
         ],
         output='screen'
     )
-    # Node 2: Bridge cho Clock, Odometry và TF để đồng bộ RViz2 với Gazebo
+    # Node 2: Bridge for Clock, Odometry and TF to synchronize RViz2 with Gazebo
     sync_rviz_gazebo_bridge_node = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
@@ -73,7 +73,7 @@ def generate_launch_description():
     executable="spawner",
     arguments=["joint_broad"],
     )
-    # Node joint_state_publisher_gui được thêm vào
+    # Node joint_state_publisher_gui added
     joint_state_publisher_gui_node = Node(
         package='joint_state_publisher',
         executable='joint_state_publisher',
@@ -86,11 +86,11 @@ def generate_launch_description():
         rsp,
         gazebo,
         gz_bridge_node,
-        cmd_vel_bridge_node,            # Bridge vận tốc
-        sync_rviz_gazebo_bridge_node,   #đồng bộ rviz
+        cmd_vel_bridge_node,            # Bridge velocity
+        sync_rviz_gazebo_bridge_node,   #synchronize rviz
         joint_state_publisher_gui_node,
         diff_drive_spawner,
-        joint_broad_spawner, # Gọi node giao diện điều khiển khớp
+        joint_broad_spawner, # call UI node to contro joint
         TimerAction(
             period=3.0,
             actions=[spawn_entity]
