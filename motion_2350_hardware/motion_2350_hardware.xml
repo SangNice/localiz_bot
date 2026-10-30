@@ -1,0 +1,9 @@
+<library path="motion_2350_hardware">
+  <class name="motion_2350_hardware/Motion2350Hardware"
+         type="motion_2350_hardware::Motion2350SystemHardware"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Custom ros2_control hardware interface for Cytron Motion 2350 Pro (4 wheels + IMU).
+    </description>
+  </class>
+</library>
