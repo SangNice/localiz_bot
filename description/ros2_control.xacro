@@ -5,7 +5,7 @@
         <ros2_control name="GazeboSystem" type="system">
             <hardware>
             <!--only change the below and after that please maintain-->
-                <plugin>diffdrive_arduino/DiffDriveArduino</plugin><!--change the plugin, we using motion 2350 pro so have to create new one, or just fake it
+                <plugin>motion_2350_hardware/Motion2350Hardware</plugin><!--change the plugin, we using motion 2350 pro so have to create new one, or just fake it
                                                                     the reason is this plugin was made by Josh, the owner of Articulated Robotics, and it has fixed for two wheel
                                                                     we use 4 wheel. We can see 2 wheel of the same side is one then the file can be used.
                                                                     if don't then create.-->
