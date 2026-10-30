@@ -1,5 +1,5 @@
 <library path="motion_2350_hardware">
-  <class name="motion_2350_hardware/Motion2350Hardware"
+  <class name="motion_2350_hardware/Motion2350SystemHardware"
          type="motion_2350_hardware::Motion2350SystemHardware"
          base_class_type="hardware_interface::SystemInterface">
     <description>

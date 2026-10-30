@@ -5,7 +5,7 @@
         <ros2_control name="GazeboSystem" type="system">
             <hardware>
             <!--only change the below and after that please maintain-->
-                <plugin>motion_2350_hardware/Motion2350Hardware</plugin><!--change the plugin, we using motion 2350 pro so have to create new one, or just fake it
+                <plugin>motion_2350_hardware/Motion2350SystemHardware</plugin><!--change the plugin, we using motion 2350 pro so have to create new one, or just fake it
                                                                     the reason is this plugin was made by Josh, the owner of Articulated Robotics, and it has fixed for two wheel
                                                                     we use 4 wheel. We can see 2 wheel of the same side is one then the file can be used.
                                                                     if don't then create.-->
@@ -15,9 +15,9 @@
                 <param name="right_back_wheel_name">right_back_wheel_joint</param>
                 <param name="loop_rate">30</param>
                 <param name="device">/dev/ttyACM0</param>
-                <param name="baud_rate">57600</param>
+                <param name="baud_rate">115200</param>
                 <param name="timeout">1000</param>
-                <param name="enc_counts_per_rev">3436</param>
+                <param name="enc_counts_per_rev">2482</param>
             </hardware>
             <joint name="left_front_wheel_joint">
                 <command_interface name="velocity">
