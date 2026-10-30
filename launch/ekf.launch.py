@@ -6,11 +6,25 @@ from launch.substitutions import LaunchConfiguration
 from launch.actions import DeclareLaunchArgument
 
 def generate_launch_description():
+    #"""
+    #Generate a launch description for the EKF node.
+ 
+    #This function creates and returns a LaunchDescription object that will start
+    #the EKF node from the robot_localization package. The node is configured
+    #using parameters from a YAML file.
+ 
+    #Returns:
+    #    LaunchDescription: A complete launch description for the EKF node
+    #"""
+    # Constants for paths to different files and folders
+
+    # Set the path to different packages
     pkg_share = get_package_share_directory('localiz_bot')
+    # Config file paths
     ekf_config_path = os.path.join(pkg_share, 'config', 'ekf.yaml')
-
+    # Launch configuration variables
     use_sim_time = LaunchConfiguration('use_sim_time')
-
+    # Declare the launch arguments
     return LaunchDescription([
         DeclareLaunchArgument(
             'use_sim_time',
