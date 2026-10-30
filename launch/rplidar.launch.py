@@ -1,3 +1,4 @@
+#remember to install driver on pi 5: sudo apt install ros-jazzy-rplidar-ros
 import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
