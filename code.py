@@ -22,10 +22,10 @@ M_LB_A, M_LB_B = board.GP12, board.GP13  # M3 (Sửa nếu đấu khác)
 M_RB_A, M_RB_B = board.GP14, board.GP15  # M4 (Sửa nếu đấu khác)
 
 # --- Chân Encoder (A, B) của 4 Motor ---
-ENC_LF_A, ENC_LF_B = board.GP18, board.GP19  # Enc 1 (Đã test trong ĐA2)
-ENC_RF_A, ENC_RF_B = board.GP20, board.GP21  # Enc 2 (Sửa theo chân bạn cắm)
-ENC_LB_A, ENC_LB_B = board.GP22, board.GP23  # Enc 3 (Sửa theo chân bạn cắm)
-ENC_RB_A, ENC_RB_B = board.GP4,  board.GP5   # Enc 4 (Sửa theo chân bạn cắm)
+ENC_LF_A, ENC_LF_B = board.GP4, board.GP5  # Enc 1 (Đã test trong ĐA2)
+ENC_RF_A, ENC_RF_B = board.GP2, board.GP3  # Enc 2 (Sửa theo chân bạn cắm)
+ENC_LB_A, ENC_LB_B = board.GP16, board.GP17  # Enc 3 (Sửa theo chân bạn cắm)
+ENC_RB_A, ENC_RB_B = board.GP18,  board.GP19   # Enc 4 (Sửa theo chân bạn cắm)
 
 # Đảo chiều động cơ/encoder nếu bánh bên phải gắn đối xứng bị quay ngược (1 hoặc -1)
 DIR_MOTOR   = [1, 1, 1, 1]  # [LF, RF, LB, RB] -> Đổi thành -1 nếu bánh nào quay ngược
