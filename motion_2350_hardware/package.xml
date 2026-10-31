@@ -20,6 +20,6 @@
 
   <export>
     <build_type>ament_cmake</build_type>
-    <ros2_control plugin="${prefix}/motion_2350_hardware.xml"/>
+    <hardware_interface plugin="${prefix}/motion_2350_hardware.xml"/>
   </export>
 </package>
