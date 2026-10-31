@@ -38,7 +38,10 @@ ament_target_dependencies(motion_2350_hardware
 )
 
 pluginlib_export_plugin_description_file(hardware_interface motion_2350_hardware.xml)
-
+install(
+  FILES motion_2350_hardware.xml
+  DESTINATION share/${PROJECT_NAME}
+)
 install(TARGETS motion_2350_hardware
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib

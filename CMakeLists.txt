@@ -35,8 +35,6 @@ endif()
 install(
   DIRECTORY config description launch worlds
   DESTINATION share/${PROJECT_NAME}
-  FILES motion_2350_hardware.xml
-  DESTINATION share/${PROJECT_NAME}
 )
 
 ament_package()
