@@ -221,7 +221,7 @@ hardware_interface::return_type Motion2350SystemHardware::write(
   char cmd_str[128];
   int len = std::snprintf(
     cmd_str, sizeof(cmd_str), "CMD,%.2f,%.2f,%.2f,%.2f\n",
-    hw_commands_[0], hw_commands_[1], hw_commands_[2], hw_commands_[3]);
+    hw_commands_[0]*-1.0, hw_commands_[1], hw_commands_[2]*-1.0, hw_commands_[3]);
 
   if (len > 0) {
     ::write(serial_fd_, cmd_str, len);
