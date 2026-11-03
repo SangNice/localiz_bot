@@ -36,7 +36,6 @@ hardware_interface::CallbackReturn Motion2350SystemHardware::on_init(
   sensor_node_ = std::make_shared<rclcpp::Node>("motion_2350_sensor_node");
   imu_pub_ = sensor_node_->create_publisher<sensor_msgs::msg::Imu>("/imu/data", 10);
   range_pub_ = sensor_node_->create_publisher<sensor_msgs::msg::Range>("/ultrasonic/range", 10);
-  battery_pub_ = sensor_node_->create_publisher<std_msgs::msg::Float32>("/battery_voltage", 10);
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
@@ -188,12 +187,6 @@ void Motion2350SystemHardware::parse_json_line(const std::string & line)
     range_msg.range = dist_cm / 100.0;
     range_pub_->publish(range_msg);
   }
-  double batt_v = 0.0;
-  if (parse_scalar("\"vbat\"", batt_v)) {
-    std_msgs::msg::Float32 batt_msg;
-    batt_msg.data = batt_v;
-    battery_pub_->publish(batt_msg);
-  }
 }
 
 hardware_interface::return_type Motion2350SystemHardware::read(
@@ -227,7 +220,7 @@ hardware_interface::return_type Motion2350SystemHardware::write(
   char cmd_str[128];
   int len = std::snprintf(
     cmd_str, sizeof(cmd_str), "CMD,%.2f,%.2f,%.2f,%.2f\n",
-    hw_commands_[0]*-1.0, hw_commands_[1], hw_commands_[2]*-1.0, hw_commands_[3]);// do 2 bánh bên  phải nó ngược
+    hw_commands_[0], hw_commands_[1]*-1.0, hw_commands_[2], hw_commands_[3]*-1.0);// do 2 bánh 1 bên bị ngược
 
   if (len > 0) {
     ::write(serial_fd_, cmd_str, len);
