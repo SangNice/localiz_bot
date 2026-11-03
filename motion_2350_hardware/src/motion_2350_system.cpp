@@ -195,7 +195,6 @@ void Motion2350SystemHardware::parse_json_line(const std::string & line)
     battery_pub_->publish(batt_msg);
   }
 }
-
 hardware_interface::return_type Motion2350SystemHardware::read(
   const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/)
 {
