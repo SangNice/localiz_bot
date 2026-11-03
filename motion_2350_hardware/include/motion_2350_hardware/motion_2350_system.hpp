@@ -13,6 +13,7 @@
 #include "rclcpp_lifecycle/state.hpp"
 #include "sensor_msgs/msg/imu.hpp"
 #include "sensor_msgs/msg/range.hpp"
+#include "std_msgs/msg/float32.hpp"
 
 namespace motion_2350_hardware
 {
@@ -57,6 +58,7 @@ private:
   std::shared_ptr<rclcpp::Node> sensor_node_;
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_pub_;
   rclcpp::Publisher<sensor_msgs::msg::Range>::SharedPtr range_pub_;
+  rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr battery_pub_;
 };
 }  // namespace motion_2350_hardware
 

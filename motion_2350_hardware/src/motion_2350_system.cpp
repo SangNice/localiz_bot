@@ -36,7 +36,7 @@ hardware_interface::CallbackReturn Motion2350SystemHardware::on_init(
   sensor_node_ = std::make_shared<rclcpp::Node>("motion_2350_sensor_node");
   imu_pub_ = sensor_node_->create_publisher<sensor_msgs::msg::Imu>("/imu/data", 10);
   range_pub_ = sensor_node_->create_publisher<sensor_msgs::msg::Range>("/ultrasonic/range", 10);
-
+  battery_pub_ = sensor_node_->create_publisher<std_msgs::msg::Float32>("/battery_voltage", 10);
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
@@ -187,6 +187,12 @@ void Motion2350SystemHardware::parse_json_line(const std::string & line)
     range_msg.max_range = 4.00;
     range_msg.range = dist_cm / 100.0;
     range_pub_->publish(range_msg);
+  }
+  double batt_v = 0.0;
+  if (parse_scalar("\"vbat\"", batt_v)) {
+    std_msgs::msg::Float32 batt_msg;
+    batt_msg.data = batt_v;
+    battery_pub_->publish(batt_msg);
   }
 }
 
