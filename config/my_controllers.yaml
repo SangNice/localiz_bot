@@ -1,13 +1,13 @@
 controller_manager:
   ros__parameters:
     update_rate: 30
-    use_sim_time: true 
+    use_sim_time: true #nên đỏi sang False nhưng thấy chạy vẫn ổn nên để đó
 
     diff_cont:
-      type: diff_drive_controller/DiffDriveController
+      type: diff_drive_controller/DiffDriveController #Chỉ định plugin này thuộc loại điều khiển robot bánh vi sai 
     
     joint_broad:
-      type: joint_state_broadcaster/JointStateBroadcaster
+      type: joint_state_broadcaster/JointStateBroadcaster #Chỉ định loại plugin này dùng để đọc vị trí, vận tốc, lực từ các khớp phần cứng của robot rồi xuất
 
 diff_cont:
   ros__parameters:
@@ -19,7 +19,7 @@ diff_cont:
     right_wheel_names: ['right_front_wheel_joint', 'right_back_wheel_joint']
     wheel_separation: 0.228
     wheel_radius: 0.065
-    use_stamped_vel: False
+    use_stamped_vel: False #đẻ thế này thì nó mới nhận cmd_vel làm lệnh điều khiển
     # open_loop: False
     # wheels_per_side: x
     # wheel_separation_multiplier: x
@@ -30,8 +30,10 @@ diff_cont:
     # pose_covariance_diagonal: x
     # twist_covariance_diagonal: x
     # open_loop: x
-    enable_odom_tf: False
-
+    enable_odom_tf: False #diff_cont (trong my_controllers.yaml): Dòng # enable_odom_tf: x đang bị comment. 
+    #Theo mặc định của diff_drive_controller, khi không khai báo dòng này, nó sẽ tự động lấy giá trị true và phát TF: odom ==> base_link (do base_frame_id: base_link)
+       #Khi enable_odom_tf: false, diff_cont vẫn phát dữ liệu vận tốc vào topic /diff_cont/odom cho EKF đọc, 
+       #nhưng nó không phát TF làm loạn cây tọa độ nữa. Lúc này một mình EKF sẽ độc quyền phát TF odom ==> base_footprint).
     # cmd_vel_timeout: x
     # publish_limited_velocity: x
     # velocity_rolling_window_size: x

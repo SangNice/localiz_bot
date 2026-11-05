@@ -21,24 +21,27 @@ hardware_interface::CallbackReturn Motion2350SystemHardware::on_init(
   }
 
   // Khởi tạo mảng cho 4 bánh xe (LF, RF, LB, RB)
-  hw_positions_.assign(info_.joints.size(), 0.0);
+  hw_positions_.assign(info_.joints.size(), 0.0);//Tự động tạo không gian bộ nhớ (mảng dữ liệu) cho các khớp
   hw_velocities_.assign(info_.joints.size(), 0.0);
   hw_commands_.assign(info_.joints.size(), 0.0);
 
-  if (info_.hardware_parameters.count("device")) {
+  if (info_.hardware_parameters.count("device")) {//Đọc thông số cấu hình phần cứng từ file cấu hình của robot 
     port_ = info_.hardware_parameters.at("device");
   }
-  if (info_.hardware_parameters.count("baud_rate")) {
+  if (info_.hardware_parameters.count("baud_rate")) {//Đọc thông số cấu hình phần cứng từ file cấu hình của robot 
     baud_rate_ = std::stoi(info_.hardware_parameters.at("baud_rate"));
   }
+//•  đoạn code này sẽ tự động cập nhật lại biến port_ và baud_rate_.
 
   // Tạo Node nội bộ đẩy dữ liệu MPU6050 lên /imu/data (khớp với ekf.yaml) và HC-SR04 lên /ultrasonic/range
+  //Tạo ra một Node ROS 2 ẩn tên là motion_2350_sensor_node nằm ngay bên trong Driver này.
   sensor_node_ = std::make_shared<rclcpp::Node>("motion_2350_sensor_node");
   imu_pub_ = sensor_node_->create_publisher<sensor_msgs::msg::Imu>("/imu/data", 10);
   range_pub_ = sensor_node_->create_publisher<sensor_msgs::msg::Range>("/ultrasonic/range", 10);
   return hardware_interface::CallbackReturn::SUCCESS;
 }
-
+//code dưới: Vòng lặp for sẽ chạy qua từng bánh xe một (LF → RF → LB → RB).
+//nó sẽ nói với ROS2 rằng các bánh xe có teen info_.joints[i].name có thể cung cấp thông tin gì
 std::vector<hardware_interface::StateInterface>
 Motion2350SystemHardware::export_state_interfaces()
 {
@@ -51,7 +54,6 @@ Motion2350SystemHardware::export_state_interfaces()
   }
   return state_interfaces;
 }
-
 std::vector<hardware_interface::CommandInterface>
 Motion2350SystemHardware::export_command_interfaces()
 {

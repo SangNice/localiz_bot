@@ -2,12 +2,12 @@ slam_toolbox:
   ros__parameters:
 
     # Plugin params
-    solver_plugin: solver_plugins::CeresSolver
-    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
-    ceres_preconditioner: SCHUR_JACOBI
-    ceres_trust_strategy: LEVENBERG_MARQUARDT
-    ceres_dogleg_type: TRADITIONAL_DOGLEG
-    ceres_loss_function: None
+    solver_plugin: solver_plugins::CeresSolver #Chọn Ceres Solver làm công cụ chính để giải bài toán tối ưu hóa đồ thị
+    ceres_linear_solver: SPARSE_NORMAL_CHOLESKY #Phương pháp giải hệ phương trình tuyến tính đại số.
+    ceres_preconditioner: SCHUR_JACOBI #Bộ tiền điều kiện (Preconditioner) dùng để hỗ trợ quá trình giải ma trận diễn ra nhanh hơn và giảm số bước lặp toán học
+    ceres_trust_strategy: LEVENBERG_MARQUARDT #Chiến lược vùng tin cậy (Trust Region Strategy) để tìm giá trị tối ưu cực tiểu.
+    ceres_dogleg_type: TRADITIONAL_DOGLEG #Kiểu thuật toán Dogleg phụ trợ (nếu chiến lược vùng tin cậy đổi sang cấu hình DOGLEG). Dòng này để dự phòng cho dòng trên
+    ceres_loss_function: None #Hàm mất mát (Loss Function) để xử lý nhiễu hoặc dữ liệu rác (Outliers - ví dụ: vật thể nhiễu bất ngờ xuất hiện làm sai lệch bản đồ).
 
     # ROS Parameters
     odom_frame: odom
